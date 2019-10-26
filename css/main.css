@@ -1,0 +1,74 @@
+body, html, #app{
+    height: 100%;
+}
+
+main{
+    display: flex;
+    height: calc(100% - 30px); /* 30px 是haader的高度 */
+}
+/* 左侧功能选择 */
+main .select-nav{
+    width: 47px;
+    background-color: rgb(51, 51, 51);
+}
+main .select-nav .option{
+    text-align: center;
+    cursor: pointer;
+    padding:10px 0;
+}
+main .select-nav .option i{
+    font-size: 27px;
+    color: rgb(173, 173, 173);
+}
+main .select-nav .option:hover i,
+main .select-nav .option.selected i{
+    color: rgb(255, 255, 255);
+}
+
+/* 核心 */
+main #core{
+    overflow: hidden;
+    position: relative;
+    flex: 1;
+    background-color: rgb(30, 30, 30);
+}
+/* 参考线 */
+#core .refer-line{
+    position: absolute;
+}
+#core .refer-line canvas{
+    position: absolute;
+    /* top: 0;
+    left: 0; */
+    background-color: rgb(40, 40, 40);
+}
+/* 遮罩层 */
+#core .refer-line .rect-shadow{
+    position: absolute;
+    z-index: 100;
+    width: 18px;
+    height: 18px;
+    background-color: rgb(66, 184, 131);
+    box-shadow: 0px 0px 2px 1px rgba(66, 184, 131, .5);
+}
+#core .refer-line #axis-x{
+    box-shadow: 0px 2px 2px rgba(0, 0, 0, .3);
+}
+#core .refer-line #axis-y{
+    box-shadow: 2px 18px 2px rgba(0, 0, 0, .3);
+}
+
+/* 画图区 */
+#core .canvas{
+
+}
+#core .canvas .wrap{
+    border: 1px solid red;
+}
+
+/* 右侧描述 */
+main .object-des{
+    background-color: rgb(51, 51, 51);
+    width: 200px;
+    border-left: 1px solid #ddb6c6;
+}

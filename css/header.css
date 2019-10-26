@@ -1,0 +1,52 @@
+header{
+    height: 30px;
+    background-color: rgb(60, 60, 60);
+    display: flex;
+    align-items: stretch;
+}
+header nav{
+    font-size: 12px;
+}
+header nav > .item{
+    position: relative;
+}
+header nav > .item > a{
+    display: block;
+    height: 100%;
+    padding: 0 7px;
+    line-height: 30px;
+    color: rgb(204, 204, 204);
+}
+header nav > .item > a:hover{
+    background-color: rgb(80, 80, 80);
+}
+
+header nav > .item .item-list.hide{
+    display: none;
+}
+header nav > .item .item-list{
+    z-index: 999;
+    position: absolute;
+    min-width: 200px;
+    left: 0px;
+    top: 100%;
+    padding:7px 0;
+    background-color: rgb(37, 37, 38);
+    box-shadow: 0px 1px 1px rgba(82, 222, 151, .8);
+}
+header nav > .item .item-list .option{
+    color: rgb(204, 204, 204);
+    cursor: pointer;
+    line-height: 24px;
+    padding: 0 15px;
+}
+header nav > .item .item-list .option:hover{
+    background-color: rgb(80, 80, 80);
+}
+header nav > .item .item-list hr{
+    background-color: rgb(97, 97, 98);
+    height: 1px;
+    padding: 0;
+    border: none;
+    width: 95%;
+}

@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="./css/entry.css">
+    <link rel="stylesheet" href="//at.alicdn.com/t/font_1441720_6refpwdqrfb.css" >
+    <title>Whale</title>
+</head>
+
+<body>
+
+    <!-- SVG编辑器升级版 名称为：Whale， No why I like -->
+    <div id="app">
+        <!-- 导航栏 -->
+        <header>
+            <!-- logo 暂定 -->
+            <!-- <div class="logo">
+                <a href="#">
+                    <img src="" alt="">
+                </a>
+            </div> -->
+            <nav>
+                <div class="item">
+                    <a href="javascript: void(0);">文件</a>
+                    <div class="item-list hide">
+                        <div class="option">
+                            <span>保存到本地</span>
+                        </div>
+                        <hr>
+                        <div class="option">
+                            <span>导入图片</span>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+        </header>
+        <main>
+            <!-- 左侧功能选择 -->
+            <div class="select-nav">
+                <div class="option selected" title="Select Tool (V)" data-status="Select">
+                    <i class="iconfont icon-xuanzegongju"></i>
+                </div>
+                <div class="option" title="Pencil Tool (Q)" data-status="Pencil">
+                    <i class="iconfont icon-bianjixiugaiqianbishuxie"></i>
+                </div>
+                <div class="option" title="Line Tool (L)" data-status="Line">
+                    <i class="iconfont icon-straight"></i>
+                </div>
+                <div class="option" title="Square Tool (S)" data-status="Square">
+                    <i class="iconfont icon-juxing"></i>
+                </div>
+                <div class="option" title="Circle Tool (C)" data-status="Circle">
+                    <i class="iconfont icon-tuoyuanxing"></i>
+                </div>
+                <div class="option" title="Path Tool (P)" data-status="Path">
+                    <i class="iconfont icon-gangbigongju"></i>
+                </div>
+                <div class="option" title="Geometry Tool (G)" data-status="Geometry">
+                    <i class="iconfont icon-chonghai-piaochong"></i>
+                </div>
+                <div class="option" title="Text Tool (T)" data-status="Text">
+                    <i class="iconfont icon-text_tool"></i>
+                </div>
+                <div class="option" title="Dropper Tool (D)" data-status="Dropper">
+                    <i class="iconfont icon-shiwu-xiguan"></i>
+                </div>
+            </div>
+            <!-- 核心画图 -->
+            <div id="core">
+                <!-- 参考线 -->
+                <div class="refer-line">
+                    <!-- 遮罩层 -->
+                    <div class="rect-shadow"></div>
+                    <!-- x轴 -->
+                    <canvas id="axis-x" height="18" width="2000"></canvas>
+                    <!-- y轴 -->
+                    <canvas id="axis-y" width="18" height="2000"></canvas>
+                </div>
+                <!-- 画图区 -->
+                <div class="canvas">
+                    <svg class="wrap">
+                        <!-- <rect></rect> -->
+                    </svg>
+                </div>
+            </div>
+            <!-- 右侧描述 -->
+            <aside class="object-des"></aside>
+        </main>
+    </div>
+
+    <script src="./js/referLine.js"></script>
+
+</body>
+</html>
