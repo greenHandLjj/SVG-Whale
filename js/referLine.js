@@ -14,19 +14,31 @@
  *      提供极值提示
  * 
  *  实现思路:
- *      绘制一个静态坐标轴并不难, 处理一点边缘柔化的问题其实就差不多了
+ *      绘制一个静态参考线并不难, 处理一点边缘柔化的问题其实就差不多了
  *      根据刻度将当前canvas的宽等分, 获取画布的左侧或上侧距离, 其实就是
- *      坐标轴的原点, 根据原点向两侧循环每隔 该刻度的一个周期, 也就是默认的
+ *      参考线的原点, 根据原点向两侧循环每隔 该刻度的一个周期, 也就是默认的
  *      -50 0 50 100 150
  *      绘制一条线, 在加上文字即可
  * 
- *      但是一旦涉及动态坐标轴, 响应式处理, 交互事件, 就会变得异常棘手
+ *      但是一旦涉及动态参考线, 响应式处理, 交互事件, 就会变得异常棘手
  *      1 需要监听鼠标移动事件
  *      2 需要不停的在canvas上进行绘制
  *      3 当刻度值变化, 对应的坐标点应根据刻度的大小来进行更新
  * 
 */
 {
+    // 使者
+    let mockData = {
+        // X 轴原点
+        getOriginPointX: SVGVIEW.getOriginPointX,
+        // Y 轴原点
+        getOriginPointY: SVGVIEW.getOriginPointY,
+        // 更新大小
+        changeSize: SVGVIEW.changeSize,
+        // 更新位置
+        changePosition: SVGVIEW.changePosition
+    }
+
     let config = {
         get(target, key) {
             return target[key];
@@ -45,17 +57,15 @@
 
     // 与外界进行通信的对象 
     const LINEDETAILS = new Proxy({
+        originWidth: SVGVIEW.originWidth,
+        originHeight: SVGVIEW.originHeight,
         // 坐标原点
-        originPointX: 240,
-        originPointY: 240,
-        //画布宽, 因为是等比例缩放, 所以没必要再有一个高 svgWidth应该由外界获取
-        svgWidth: 500,
-        // 坐标轴是否处于休眠状态
+        originPointX: mockData.getOriginPointX(),
+        originPointY: mockData.getOriginPointY(),
+        // 参考线是否处于休眠状态
         isSleep: false,
-        // 缩放
-        zoom() {
-            return this.svgWidth / 500;
-        },
+        // 缩放 默认1
+        zoom: 1,
         // 极值处理
         zoomMax(fn) {
 
@@ -68,19 +78,21 @@
     let canvas = document.getElementById('axis-x'),
         canvas2 = document.getElementById('axis-y'),
         arrX = [],
-        arrY = [];
+        arrY = [],
+        // requestAnimationFrame 计数器
+        index;
         
     // ReferLineX, ReferLineY的父类, 减少一部分重复代码
     class ReferLine {
         constructor() {
             // 线段缩放
             this.scaleWidth = 10;
-            // 默认坐标轴线段长
-            this.initialW = 100 * LINEDETAILS.zoom();
+            // 默认参考线线段长
+            this.initialW = 100;
         }
 
         zoom() {
-            let zoom = LINEDETAILS.zoom();
+            let zoom = LINEDETAILS.zoom;
 
             if (zoom >= 1 && zoom < 1.2) {
                 this.scaleWidth = 10;
@@ -106,10 +118,11 @@
         }
 
         update() {
-            let zoom = LINEDETAILS.zoom();
+            let zoom = LINEDETAILS.zoom;
             if (!this.isMove) {
                 this.initialW = 100 * zoom;
             }
+            // console.log(this.scaleWidth)
         }
     }
 
@@ -132,15 +145,15 @@
             let ctx = this.ctx,
                 scaleWidth = this.scaleWidth,
                 originPointX = LINEDETAILS.originPointX,
-                zoom = LINEDETAILS.zoom();
+                zoom = LINEDETAILS.zoom;
             // 开始路径
             ctx.beginPath();
 
             // 样式设置
             if (this.n === 0) {
-                ctx.fillStyle = ctx.strokeStyle = 'hsl(152, 90%, 50%)';
+                ctx.fillStyle = ctx.strokeStyle = 'hsl(152, 90%, 60%)';
             } else {
-                ctx.fillStyle = ctx.strokeStyle = 'rgb(130, 130, 130)';
+                ctx.fillStyle = ctx.strokeStyle = 'rgb(200, 200, 200)';
             }
             ctx.lineWidth = 0.5;
             ctx.font = '9px 微软雅黑';
@@ -148,19 +161,12 @@
             if (!this.isMove) {
 
                 // 缩放 this.n === 0, 目的是为了 减少函数执行没必要的次数
-                this.n === 0 && this.zoom();
-                // 交换
-                // this.scaleWidth = scaleWidth;
+                this.zoom();
 
                 let n = originPointX + this.n * (this.initialW / 10 * scaleWidth);
-
                 // start
                 ctx.moveTo(n - 0.5, 0);
                 ctx.lineTo(n - 0.5, this.lineHeight);
-
-                // ctx.moveTo(originPointX + this.n * this.initialW - 10 - 0.5, 0);
-                // ctx.lineTo(originPointX + this.n * this.initialW - 10 - 0.5, this.lineHeight);
-                // console.log(this.initialW)
                 for (let i = 1; i <= 5; i++) {
 
                     // 左侧
@@ -174,6 +180,7 @@
                 ctx.stroke();
                 // 显示的数值和缩放比有何关系? 0 - 50 zoom:1 || 0 - 10 zoom:?
                 ctx.fillText(this.n * scaleWidth * 10, n + 1.5, 9);
+
                 // 关闭路径
                 ctx.closePath();
             } else { // 特殊线段, 跟随鼠标移动
@@ -217,15 +224,15 @@
             let ctx = this.ctx,
                 scaleWidth = this.scaleWidth,
                 originPointY = LINEDETAILS.originPointY,
-                zoom = LINEDETAILS.zoom();
+                zoom = LINEDETAILS.zoom;
 
             // 开始路径
             ctx.beginPath();
             // 样式设置
             if (this.n === 0) {
-                ctx.fillStyle = ctx.strokeStyle = 'hsl(152, 90%, 50%)';
+                ctx.fillStyle = ctx.strokeStyle = 'hsl(152, 90%, 60%)';
             } else {
-                ctx.fillStyle = ctx.strokeStyle = 'rgb(130, 130, 130)';
+                ctx.fillStyle = ctx.strokeStyle = 'rgb(200, 200, 200)';
             }
             ctx.lineWidth = 0.5;
             ctx.font = '9px 微软雅黑';
@@ -233,7 +240,7 @@
             if (!this.isMove) {
 
                 // 缩放
-                this.n === 0 && this.zoom();
+                this.zoom();
 
                 // 核心计算公式!!!!!!!
                 let n = originPointY + this.n * (this.initialW / 10 * scaleWidth);
@@ -294,6 +301,10 @@
         arrX[30].isMove = true;
         arrY[30].isMove = true;
 
+        // 原点初始化
+        mockData.getOriginPointX();
+        mockData.getOriginPointY();
+
         // 开始绘制
         loop();
     }
@@ -308,16 +319,13 @@
             item.render();
             arrY[index] && arrY[index].render();
 
-            if(index === 0){
-                // 减少执行
-                item.update();
-                arrY[index] && arrY[index].update();
-            }
+            item.update();
+            arrY[index] && arrY[index].update();
         })
 
-        // 后续需要提供可停止条件, 比方说当坐标轴被隐藏时, 当被唤醒时如何再次开始?
+        // 后续需要提供可停止条件, 比方说当参考线被隐藏时, 当被唤醒时如何再次开始?
         if (!LINEDETAILS.isSleep) {
-            requestAnimationFrame(loop);
+            index = requestAnimationFrame(loop);
         }
     }
 
@@ -330,23 +338,44 @@
         }
     })
     document.addEventListener('keyup', () => {
-        flag = false
+        flag = false;
     })
     core.addEventListener('mousewheel', (e) => {
         // 达到最大值, 应该有通知外界
         if (flag) {
+            // 进入休眠， 解决抖动问题
+            LINEDETAILS.isSleep = true;
+
             // 上滚动 放大
-            if (e.deltaY <= 0) {
-                LINEDETAILS.svgWidth += 20;
-                // if (LINEDETAILS.svgWidth > 11) { // 极值 - MAX
-                //     LINEDETAILS.svgWidth = 11;
-                // }
-            } else if (e.deltaY > 0) { // 下滚动
-                LINEDETAILS.svgWidth -= 20;
-                // if (LINEDETAILS.svgWidth < 0.4) { // 极值 - MIN
-                //     LINEDETAILS.svgWidth = 0.4;
-                // }
+            e.deltaY < 0 ? LINEDETAILS.zoom += 0.05 : LINEDETAILS.zoom -= 0.05;
+
+            // 极值处理
+            if(LINEDETAILS.zoom < 0.6){// MIN
+                LINEDETAILS.zoom = 0.6;
+                console.log("MIN")
+            }else if(LINEDETAILS.zoom >= 3.85){// MAX
+                LINEDETAILS.zoom = 3.85;
+                console.log("MAX")
             }
+
+            // 数据校准
+            LINEDETAILS.originWidth = SVGVIEW.originWidth;
+            LINEDETAILS.originHeight = SVGVIEW.originHeight;
+
+            // 外部对象
+            mockData.changeSize({
+                width: LINEDETAILS.originWidth * LINEDETAILS.zoom,
+                height: LINEDETAILS.originHeight * LINEDETAILS.zoom
+            })
+
+            // 重新更改原点位置
+            LINEDETAILS.originPointX = mockData.getOriginPointX();
+            LINEDETAILS.originPointY = mockData.getOriginPointY();
+
+            // 程序卡顿优化
+            cancelAnimationFrame(index);
+
+            LINEDETAILS.isSleep = false;
         }
         e.preventDefault();
     })
@@ -406,10 +435,8 @@ window.LINEDETAILS.zoomMin = function(){
 
 
         2019.10.25 21:33
-            坐标轴设计基本完成
+            参考线设计基本完成
             余下难点:
-                以后可能会开发隐藏坐标轴功能
+                以后可能会开发隐藏参考线功能
                 隐藏意味着不需要进行鼠标移动监听, canvas绘制, 这个状态应该由谁来给
-
-
  */

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>第二版本测试</title>
+</head>
+<body>
+    
+    <!--             第二代图形绘制测试 start             -->
+
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        svg{
+            display: block;
+        }
+        #svgText{
+            position: absolute;
+            outline: none;
+            min-width: 16px;
+            outline: 1px solid #000;
+        }
+
+        /* Test */
+        button{
+            padding: 10px;
+        }
+    </style>
+
+    <svg id="wrap" width="1000" height="500" style="outline: 1px solid red;">
+        <svg id="content" width="800" height="500" x="100">
+        </svg>
+        <svg id="background" width="1000" height="500" ></svg>
+    </svg>
+    <!--             第二代图形绘制测试 end             -->
+    <!-- <p id="svgText" contenteditable="true">nihaoa </p> -->
+
+    <button onclick="pen.drawPicture='rect'">rect</button>
+    <button onclick="pen.drawPicture='circle'">circle</button>
+    <button onclick="pen.drawPicture='line'">line</button>
+    <button onclick="pen.drawPicture='polyline'">polyline</button>
+    <button onclick="pen.drawPicture='text'">text</button>
+    <button onclick="pen.drawPicture='path'">path</button>
+
+    <script src="./index2.js"></script>
+</body>
+</html>

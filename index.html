@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh">
 
 <head>
     <meta charset="UTF-8">
@@ -12,7 +12,7 @@
 
 <body>
 
-    <!-- SVG编辑器升级版 名称为：Whale， No why I like -->
+    <!-- Whale-app -->
     <div id="app">
         <!-- 导航栏 -->
         <header>
@@ -81,17 +81,34 @@
                 </div>
                 <!-- 画图区 -->
                 <div class="canvas">
-                    <svg class="wrap">
-                        <!-- <rect></rect> -->
+                    <svg class="wrap" xmlns="http://www.w3.org/2000/svg">
+                        <!-- 背景 -->
+                        <svg id="svgBackground" x="50" y="50" width="700" height="450" viewBox="0, 0, 700, 450">
+                            <rect x="0" y="0" width="100%" height="100%" fill="url(#background-linear)"></rect>
+                            <defs>
+                                <linearGradient id="background-linear">
+                                    <stop stop-color="#fff" offset="1"></stop>
+                                </linearGradient>
+                            </defs>
+                        </svg>
+                        <!-- 内容 -->
+                        <svg id="svgContent" x="50" y="50" width="700" height="450" viewBox="0, 0, 700, 450">
+                            <circle cx="50" cy="50" r="50" fill="red"></circle>
+                        </svg>
                     </svg>
                 </div>
             </div>
             <!-- 右侧描述 -->
-            <aside class="object-des"></aside>
+            <aside class="object-des">
+                
+            </aside>
         </main>
     </div>
 
+    <script src="./js/svgView.js"></script>
     <script src="./js/referLine.js"></script>
+    <script src="./js/svgBackground.js"></script>
+    <script src="./js/svgContent.js"></script>
 
 </body>
 </html>

@@ -1,3 +1,5 @@
+@import "./svg-decoration.css";
+
 body, html, #app{
     height: 100%;
 }
@@ -59,12 +61,7 @@ main #core{
 }
 
 /* 画图区 */
-#core .canvas{
-
-}
-#core .canvas .wrap{
-    border: 1px solid red;
-}
+/* 此处代码已放至 svg-decoration.css */
 
 /* 右侧描述 */
 main .object-des{

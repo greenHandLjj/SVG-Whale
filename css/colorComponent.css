@@ -1,0 +1,35 @@
+/* 组件 */
+colorComponent{
+    position: relative;
+    width: 300px;
+    display: block;
+    padding: 10px;
+    border-radius: 40px;
+    background-color: #232323;
+    background-image: linear-gradient(130deg,hsl(322, 50%, 50%), hsl(240, 50%, 50%));
+}
+colorComponent .colorNavBar{
+    display: flex;
+    justify-content: center;
+    height: 30px;
+    margin-top: 10px;
+}
+colorComponent .colorNavBar span{
+    flex: 1;
+    text-align: center;
+    font-size: 12px;
+    line-height: 30px;
+    cursor: pointer;
+    color: rgb(220, 220, 220);
+    -webkit-user-select: none;
+}
+colorComponent .colorNavBar span.active{
+    color: #fff;
+}
+/* canvas */
+#colorPicker{
+    display: block;
+    box-shadow: 1px 1px 1px #ff5555,
+                -1px -1px 1px #55ffff;
+    border-radius: 50%;
+}

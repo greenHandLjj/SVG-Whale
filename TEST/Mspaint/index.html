@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+    <!-- 第一代测试版本 start -->
+
+    <style>
+        body{
+            margin: 0;
+            padding: 0;
+        }
+        #wrap{
+            background-color: #232323;
+        }
+        svg{
+            display: block;
+        }
+        /*
+            [0,0] [0,1] [0,2]
+            [1,0] [1,1] [1,2]
+            [2,0] [2,1] [2,2]
+        */
+        .vitual-resize-0-0{
+            cursor: nw-resize;
+        }
+        .vitual-resize-0-1{
+            cursor: n-resize;
+        }
+        .vitual-resize-0-2{
+            cursor: sw-resize;
+        }
+        .vitual-resize-1-0{
+            cursor: w-resize;
+        }
+        .vitual-resize-1-2{
+            cursor: w-resize;
+        }
+        .vitual-resize-2-0{
+            cursor: sw-resize;
+        }
+        .vitual-resize-2-1{
+            cursor: n-resize;
+        }
+        .vitual-resize-2-2{
+            cursor: nw-resize;
+        }
+    </style>
+    
+    <svg id="wrap" style="margin: 20px;">
+        <!-- content -->
+        <svg id="content">
+            
+        </svg>
+        <!-- background -->
+        <svg id="background"></svg>
+
+
+        <!-- 内测 -->
+        <g style="display: none;">
+            <!-- 框 -->
+            <rect class="virtual-frame" fill-opacity="0" x="200" y="200" width="200" height="200" stroke="blue" stroke-dasharray="4" stroke-width="1"></rect>
+            <!-- 上 -->
+            <!-- 左上 -->
+            <rect class="virtual-left-top" fill="blue" x="196" y="196" width="8" height="8" stroke="blue"></rect>
+            <!-- 中上 -->
+            <rect class="virtual-center-top" fill="blue" x="296" y="196" width="8" height="8" stroke="blue"></rect>
+            <!-- 右上 -->
+            <rect class="virtual-right-top" fill="blue" x="396" y="196" width="8" height="8" stroke="blue"></rect>
+
+            <!-- 中 -->
+            <!-- 左中 -->
+            <rect class="virtual-left-center" fill="blue" x="196" y="296" width="8" height="8" stroke="blue"></rect>
+            <!-- 右中 -->
+            <rect class="virtual-right-center" fill="blue" x="396" y="296" width="8" height="8" stroke="blue"></rect>
+
+            <!-- 下 -->
+            <!-- 左下 -->
+            <rect class="virtual-left-bottom" fill="blue" x="196" y="396" width="8" height="8" stroke="blue"></rect>
+            <!-- 中下 -->
+            <rect class="virtual-center-bottom" fill="blue" x="296" y="396" width="8" height="8" stroke="blue"></rect>
+            <!-- 右下 -->
+            <rect class="virtual-right-bottom" fill="blue" x="396" y="396" width="8" height="8" stroke="blue"></rect>
+        </g>
+
+    </svg>
+
+    <!-- 第一代测试版本 end -->
+
+
+    <script src="./index.js"></script>
+
+</body>
+</html>

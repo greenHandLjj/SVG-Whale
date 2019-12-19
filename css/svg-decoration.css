@@ -1,0 +1,7 @@
+#core .canvas{
+    height: 100%;
+}
+#core .canvas .wrap{
+    width: 100%;
+    height: 100%;
+}
