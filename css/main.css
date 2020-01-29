@@ -1,4 +1,3 @@
-@import "./svg-decoration.css";
 
 body, html, #app{
     height: 100%;
@@ -6,7 +5,7 @@ body, html, #app{
 
 main{
     display: flex;
-    height: calc(100% - 30px); /* 30px 是haader的高度 */
+    height: calc(100% - 32px); /* 32px 是haader的高度 */
 }
 /* 左侧功能选择 */
 main .select-nav{
@@ -28,16 +27,106 @@ main .select-nav .option.selected i{
 }
 
 /* 核心 */
-main #core{
-    overflow: hidden;
-    position: relative;
+main > section{
     flex: 1;
-    background-color: rgb(30, 30, 30);
+    display: flex;
+    flex-direction: column;
+}
+/* 文件名 */
+main > section .file-wrap{
+    position: relative;
+    overflow: hidden;
+    height: 29px;
+}
+/* 没有文件时 */
+main > section .file-wrap.hide{
+    display: none;
+}
+main > section .file-wrap .file{
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    right: 8%;
+    overflow: hidden;
+    white-space: nowrap;
+    /* 处理文本的间隙问题 */
+    font-size: 0px;
+    background-color: rgb(45,45,38);
+    border-bottom: 1px solid #ddb6c6;
+}
+main > section .file .file-item{
+    display: inline-flex;
+    cursor: pointer;
+    width: 100px;
+    height: 100%;
+    background-color: rgb(50,50,50);
+    color: #ccc;
+    line-height: 29px;
+    text-align: center;
+}
+/* 不是最后一个节点 */
+main > section .file .file-item:not(:last-child) {
+    border-right: 1px solid #666;
+}
+main > section .file .file-item span{
+    padding: 0 5px;
+    font-size: 12px;
+    flex: 1;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+main > section .file .file-item .close{
+    font-size: 14px;
+    width: 20px;
+    font-size: 8px;
+    opacity: 0;
+}
+main > section .file .file-item.active{
+    color: #f5f5f5;
+    background-color: rgb(25,25,25);
+}
+main > section .file .file-item.active .close,
+main > section .file .file-item:hover .close{
+    opacity: 1;
+}
+/* 文件名导航条控制栏 */
+main > section .file-wrap .file-control{
+    position: relative;
+    z-index: 99;
+    width: 8%;
+    min-width: 80px;
+    height: 99%;
+    border-bottom: 1px solid #ddb6c6;
+    margin-left: auto;
+    background-color: rgb(45,45,38);
+}
+main > section .file-wrap .file-control {
+    color: #ccc;
+    line-height: 29px;
+}
+
+
+main .core-wrap{
+    flex: 1;
+    position: relative;
+}
+main .core-wrap #core{
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    overflow: hidden;
+    background-color: rgb(80, 80, 80);
 }
 /* 参考线 */
 #core .refer-line{
     position: absolute;
+    z-index: 999;
 }
+/* 画布区 */
 #core .refer-line canvas{
     position: absolute;
     /* top: 0;
@@ -59,13 +148,53 @@ main #core{
 #core .refer-line #axis-y{
     box-shadow: 2px 18px 2px rgba(0, 0, 0, .3);
 }
-
 /* 画图区 */
-/* 此处代码已放至 svg-decoration.css */
+#core .canvas{
+    position: relative;
+    height: 100%;
+}
+/* 实际画布容器 */
+#core .canvas .canvas-item{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: rgb(80, 80, 80);
+}
+/* 置顶画布 */
+#core .canvas .canvas-item.top{
+    z-index: 99;
+}
 
 /* 右侧描述 */
 main .object-des{
     background-color: rgb(51, 51, 51);
-    width: 200px;
+    width: 250px;
     border-left: 1px solid #ddb6c6;
+}
+/* 取色器组件 */
+main .object-des .color-component{
+    padding: 10px;
+    border-bottom: 1px solid rgb(0, 0, 0);
+}
+/* 图层 */
+main .object-des .layer{
+    
+}
+main .object-des .layer p{
+    color: #fff;
+    font-size: 12px;
+    line-height: 25px;
+    text-indent: 5px;
+}
+main .object-des .layer p span{
+    margin-left: 5px;
+    padding-right: 10px;
+    cursor: pointer;
+}
+main .object-des .layer p span:not(:last-child){
+    border-right: 1px solid #fff;
+}
+main .object-des .layer .contain{
+    border: 1px solid rgb(0, 0, 0);
+    height: 100px;
 }

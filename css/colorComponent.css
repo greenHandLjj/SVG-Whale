@@ -1,12 +1,12 @@
 /* 组件 */
 colorComponent{
     position: relative;
-    width: 300px;
+    /* width: 250px; */
     display: block;
     padding: 10px;
-    border-radius: 40px;
+    border-radius: 20px;
     background-color: #232323;
-    background-image: linear-gradient(130deg,hsl(322, 50%, 50%), hsl(240, 50%, 50%));
+    /* background-image: linear-gradient(130deg,hsl(322, 50%, 50%), hsl(240, 50%, 50%)); */
 }
 colorComponent .colorNavBar{
     display: flex;

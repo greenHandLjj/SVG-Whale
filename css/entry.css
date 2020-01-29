@@ -1,3 +1,6 @@
 @import '/css/reset.css';
 @import '/css/header.css';
+/* 主体区 */
 @import '/css/main.css';
+/* 配合颜色组件使用 */
+@import '/css/colorComponent.css';

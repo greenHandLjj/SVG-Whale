@@ -12,6 +12,9 @@ a{
     text-decoration: none;
     color: inherit;
 }
+i{
+    font-style: normal;
+}
 
 /* 所有文本默认禁止选中 */
 div, p, h1, h2, h3, h4, h5, h6, span, i, text{

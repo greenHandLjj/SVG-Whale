@@ -61,7 +61,7 @@
             // 组件容器
             this.el = el;
             // 画布大小
-            this.size = 300;
+            this.size = 210;
             // 可复用的canvas 图形。一次绘制多次使用 会在初始化时赋值
             this.colorImage;
             // 当前绘制状态， 可在 [H, S, L] 中切换

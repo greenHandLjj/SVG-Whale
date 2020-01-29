@@ -1,52 +1,91 @@
+/* 头部样式 */
 header{
-    height: 30px;
+    --head-wrap: 32px;
+    height: var(--head-wrap);
     background-color: rgb(60, 60, 60);
-    display: flex;
-    align-items: stretch;
 }
 header nav{
-    font-size: 12px;
+    padding-left: 20px;
 }
-header nav > .item{
+header nav::after{
+    content: "";
+    display: block;
+    clear: both;
+}
+header nav > div{
+    height: 100%;
+    float: left;
     position: relative;
 }
-header nav > .item > a{
+header nav > div > a{
     display: block;
     height: 100%;
-    padding: 0 7px;
-    line-height: 30px;
-    color: rgb(204, 204, 204);
+    padding: 0 15px;
+    line-height: var(--head-wrap);
+    font-size: 12px;
+    box-sizing: border-box;
+    color: #f5f5f5;
 }
-header nav > .item > a:hover{
-    background-color: rgb(80, 80, 80);
+header nav > div > a:focus{
+    outline: none;
+}
+header nav > div:hover,
+header nav > div.selected{
+    background-color: rgb(45, 45, 45);
 }
 
-header nav > .item .item-list.hide{
-    display: none;
+/* 菜单子项 */
+header nav > div .item-box.show{
+    display: block;
 }
-header nav > .item .item-list{
-    z-index: 999;
+header nav > div .item-box.hide{
+    display: none !important;
+}
+header nav > div .item-box{
     position: absolute;
-    min-width: 200px;
-    left: 0px;
+    z-index: 999;
+    left: 0;
     top: 100%;
-    padding:7px 0;
-    background-color: rgb(37, 37, 38);
-    box-shadow: 0px 1px 1px rgba(82, 222, 151, .8);
+    background-color: rgb(30, 30, 30);
+    box-shadow: 0px 2px 2px 2px rgba(0, 0, 0, .5);
+    padding: 10px 0;
 }
-header nav > .item .item-list .option{
-    color: rgb(204, 204, 204);
+header nav > div .item-box a{
+    font-size: 12px;
+    padding: 6px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center; 
     cursor: pointer;
-    line-height: 24px;
-    padding: 0 15px;
 }
-header nav > .item .item-list .option:hover{
-    background-color: rgb(80, 80, 80);
+header nav > div .item-box a span{
+    color: rgb(212, 212, 212);
+    white-space: nowrap;
+    margin-right: 20px;
 }
-header nav > .item .item-list hr{
-    background-color: rgb(97, 97, 98);
+header nav > div .item-box a i{
+    background-color: rgb(229, 229, 229);
+    font-style: normal; 
+    padding: 3px 6px;
+    color: rgb(45, 45, 45);
+    border-radius: 4px;
+    box-shadow: 1px 1px 2px rgb(0, 0, 0),
+                inset 1px 1px 2px rgb(255, 255, 255);
+}
+/* 可用 */
+header nav > div .item-box a.available:hover{
+    background-color: rgb(0, 124, 204);
+}
+/* 不可用 */
+header nav > div .item-box a.disable{
+    opacity: .5;
+    cursor: not-allowed;
+}
+/* 分割线 */
+header nav > div .item-box hr{
+    width: 94%;
     height: 1px;
-    padding: 0;
+    background-color: rgb(180, 180, 180);
     border: none;
-    width: 95%;
 }
+/* 菜单子项 */

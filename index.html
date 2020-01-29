@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="./css/entry.css">
-    <link rel="stylesheet" href="//at.alicdn.com/t/font_1441720_6refpwdqrfb.css" >
+    <link rel="stylesheet" href="//at.alicdn.com/t/font_1441720_70sexzrnwjp.css">
     <title>Whale</title>
 </head>
 
@@ -16,23 +16,65 @@
     <div id="app">
         <!-- 导航栏 -->
         <header>
-            <!-- logo 暂定 -->
-            <!-- <div class="logo">
-                <a href="#">
-                    <img src="" alt="">
-                </a>
-            </div> -->
-            <nav>
-                <div class="item">
+            <nav class="navigation">
+                <div class="list">
                     <a href="javascript: void(0);">文件</a>
-                    <div class="item-list hide">
-                        <div class="option">
-                            <span>保存到本地</span>
-                        </div>
-                        <hr>
-                        <div class="option">
+                    <div class="item-box hide">
+                        <a href="javascript: void(0);" class="available" data-handle="create-new-canvas">
+                            <span>新建画布</span>
+                            <i class="code">ctrl+n</i>
+                        </a>
+                        <a href="javascript: void(0);" class="available" data-handle="import-img">
                             <span>导入图片</span>
-                        </div>
+                            <!-- <i class="code">ctrl+v</i> -->
+                        </a>
+                        <a href="javascript: void(0);" class="disable">
+                            <span>导出图片</span>
+                            <!-- <i class="code">ctrl+v</i> -->
+                        </a>
+                        <a href="javascript: void(0);" class="disable">
+                            <span>保存</span>
+                            <i class="code">ctrl+s</i>
+                        </a>
+                        <hr>
+                        <a href="javascript: void(0);" class="available">
+                            <span>导出PNG格式</span>
+                            <!-- <i class="code">ctrl+v</i> -->
+                        </a>
+                    </div>
+                </div>
+                <div class="list">
+                    <a href="javascript: void(0);">编辑</a>
+                    <div class="item-box hide">
+                        <a href="javascript: void(0);" class="available">
+                            <span>撤销</span>
+                            <i class="code">ctrl+z</i>
+                        </a>
+                        <hr>
+                        <a href="javascript: void(0);" class="available">
+                            <span>复制</span>
+                            <i class="code">ctrl+c</i>
+                        </a>
+                        <a href="javascript: void(0);" class="available">
+                            <span>黏贴</span>
+                            <i class="code">ctrl+v</i>
+                        </a>
+                        <a href="javascript: void(0);" class="available">
+                            <span>删除</span>
+                            <i class="code">backspace</i>
+                        </a>
+                    </div>
+                </div>
+                <div class="list">
+                    <a href="javascript: void(0);">查看</a>
+                    <div class="item-box hide">
+                        <a href="javascript: void(0);" class="available">
+                            <span>画布信息</span>
+                        </a>
+                        <hr>
+                        <a href="javascript: void(0);" class="available" data-handle='toggle-auxiliary-line-sataus'>
+                            <span>开启辅助线</span>
+                        </a>
                     </div>
                 </div>
             </nav>
@@ -69,46 +111,87 @@
                 </div>
             </div>
             <!-- 核心画图 -->
-            <div id="core">
-                <!-- 参考线 -->
-                <div class="refer-line">
-                    <!-- 遮罩层 -->
-                    <div class="rect-shadow"></div>
-                    <!-- x轴 -->
-                    <canvas id="axis-x" height="18" width="2000"></canvas>
-                    <!-- y轴 -->
-                    <canvas id="axis-y" width="18" height="2000"></canvas>
+            <section>
+                <div class="file-wrap hide"> 
+                    <!-- 默认隐藏 -->
+                    <div class="file">
+                        <!-- <div class="file-item active">
+                            <span>未命名</span>
+                            <i class="close iconfont icon-shixinyuanxing"></i>
+                        </div> -->
+                        <!-- <div class="file-item">
+                            <span>未命名</span>
+                            <i class="close iconfont icon-guanbi"></i>
+                        </div> -->
+                    </div>
+                    <div class="file-control">
+                        control
+                    </div>
                 </div>
-                <!-- 画图区 -->
-                <div class="canvas">
-                    <svg class="wrap" xmlns="http://www.w3.org/2000/svg">
-                        <!-- 背景 -->
-                        <svg id="svgBackground" x="50" y="50" width="700" height="450" viewBox="0, 0, 700, 450">
-                            <rect x="0" y="0" width="100%" height="100%" fill="url(#background-linear)"></rect>
-                            <defs>
-                                <linearGradient id="background-linear">
-                                    <stop stop-color="#fff" offset="1"></stop>
-                                </linearGradient>
-                            </defs>
-                        </svg>
-                        <!-- 内容 -->
-                        <svg id="svgContent" x="50" y="50" width="700" height="450" viewBox="0, 0, 700, 450">
-                            <circle cx="50" cy="50" r="50" fill="red"></circle>
-                        </svg>
-                    </svg>
+                <div class="core-wrap">
+                    <div id="core">
+                        <!-- 参考线 -->
+                        <div class="refer-line">
+                            <!-- 遮罩层 -->
+                            <div class="rect-shadow"></div>
+                            <!-- x轴 -->
+                            <canvas id="axis-x" height="18" width="1500"></canvas>
+                            <!-- y轴 -->
+                            <canvas id="axis-y" width="18" height="1500"></canvas>
+                        </div>
+                        <!-- 画图区 -->
+                        <div class="canvas">
+                            <!-- <div class="canvas-item"></div> -->
+                        </div>
+                    </div>
                 </div>
-            </div>
+            </section>
             <!-- 右侧描述 -->
             <aside class="object-des">
-                
+                <!-- 取色器 -->
+                <div class="color-component">
+                    <colorComponent></colorComponent>
+                </div>
+                <!-- 图层 -->
+                <div class="layer">
+                    <p>
+                        <span>图层</span>
+                        <span>图层</span>
+                        <span>图层</span>
+                        <span>图层</span>
+                    </p>
+                    <div class="contain">
+
+                    </div>
+                </div>
             </aside>
         </main>
     </div>
 
-    <script src="./js/svgView.js"></script>
-    <script src="./js/referLine.js"></script>
-    <script src="./js/svgBackground.js"></script>
-    <script src="./js/svgContent.js"></script>
+    <!-- <script src="./js/referLine.js"></script> -->
+    <script src="./js/colorComponent.js"></script>
+    <!-- 导航条相关脚本 -->
+    <script src="./js/nav.js"></script>
+    <!-- 画布类相关脚本 -->
+    <script src="./js/canvas.js"></script>
+    <!-- 切换画图区相关脚本 -->
+    <script src="./js/file.js"></script>
+    <!-- 核心绘图脚本 -->
+    <script src="./js/mspaint.js"></script>
+
+    <script>
+        // 创建画笔
+        let pen = new Pen({
+            canvas: canvasWrap
+        })
+        // new Canvas({
+        //     el: document.getElementsByClassName('canvas-item')[0], // 选择父元素
+        //     width: 250, // 元素宽
+        //     height: 250, // 元素高
+        // })
+        
+    </script>
 
 </body>
+
 </html>
